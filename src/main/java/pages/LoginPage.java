@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
+public class LoginPage extends PageBase{
     private WebDriver driver;
     private By emailField = By.id("admin_user_email");
     private By passwordField = By.id("admin_user_password");

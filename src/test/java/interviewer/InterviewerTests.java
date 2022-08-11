@@ -17,7 +17,7 @@ public class InterviewerTests extends BaseTests {
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewerPage = dashboardpage.clickInterviewerPage();
         assertTrue(interviewerPage.isNewInterviewerButtonDisplayed(), "New Interviewer button exists");
-        assertEquals(interviewerPage.getPageTitle(),"Interviewers", "Interviewer name is correct");
+        assertEquals(interviewerPage.getPageTitle(),"Interviewers", "Interviewers page title is correct");
 
     }
 }
