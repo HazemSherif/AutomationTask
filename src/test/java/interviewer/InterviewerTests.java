@@ -12,12 +12,9 @@ public class InterviewerTests extends BaseTests {
 
     @Test
     public void testNewInterviewerButtonExists (){
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewerPage = dashboardpage.clickInterviewerPage();
         assertTrue(interviewerPage.isNewInterviewerButtonDisplayed(), "New Interviewer button exists");
         assertEquals(interviewerPage.getPageTitle(),"Interviewers", "Interviewers page title is correct");
-
     }
 }

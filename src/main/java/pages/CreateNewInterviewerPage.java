@@ -7,33 +7,33 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class CreateNewInterviewerPage {
-    private WebDriver driver;
+public class CreateNewInterviewerPage extends PageBase{
+   // private WebDriver driver;
     private By emailField = By.id("interviewer_email");
     private By firstNameField = By.id("interviewer_first_name");
     private By lastnameField = By.id("interviewer_last_name");
     private By ddl = By.id("interviewer_job_position_id");
-    public CreateNewInterviewerPage( WebDriver driver){ this.driver = driver;}
     private By createInterviewerButton = By.id("interviewer_submit_action");
     private By cancelButton = By.linkText("Cancel");
     private By updateButton = By.name("commit");
     private By errorMessages = By.className("inline-errors");
     private By jobPositionsButton = By.linkText("Job Positions");
 
+    public CreateNewInterviewerPage(WebDriver driver) {
+        super(driver);
+    }
 
 
     // set text fields
-    public void setEmailFieldText(String text){
-        driver.findElement(emailField).sendKeys(text);
-    }
+    public void setEmailFieldText(String text){type(emailField,text);}
     public void setFirstNameFieldText(String text){
-        driver.findElement(firstNameField).sendKeys(text);
+        type(firstNameField,text);
     }
     public void setLastNameFieldText(String text){
-        driver.findElement(lastnameField).sendKeys(text);
+        type(lastnameField,text);
     }
     public String getUpdateButtonText(){
-        return driver.findElement(updateButton).getAttribute("value");
+        return get_attribute(updateButton,"value");
     }
 
     // get data
@@ -44,44 +44,39 @@ public class CreateNewInterviewerPage {
 
     // clear fields
     public void clearEmailFieldText(){
-        driver.findElement(emailField).clear();
+        clear_field(emailField);
     }
-    public void clearFirstNameFieldText(){
-        driver.findElement(firstNameField).clear();
-    }
+    public void clearFirstNameFieldText(){clear_field(firstNameField);}
     public void clearLastNameFieldText(){
-        driver.findElement(lastnameField).clear();
+        clear_field(lastnameField);
     }
 
    // dropdown menu
    public List getJobPositionList(){
-       WebElement jobPositionDropDownMenu = driver.findElement(ddl);
-       Select dropdown = new Select(jobPositionDropDownMenu);
-       return dropdown.getOptions();
-
+    /*   WebElement jobPositionDropDownMenu = driver.findElement(ddl);
+       Select dropdown = new Select(jobPositionDropDownMenu);*/
+       return create_select(ddl).getOptions();
    }
     public void selectJobPosition(String text){
-        WebElement jobPositionDropDownMenu = driver.findElement(ddl);
-        Select dropdown = new Select(jobPositionDropDownMenu);
-        dropdown.selectByVisibleText(text);
+       /* WebElement jobPositionDropDownMenu = driver.findElement(ddl);
+        Select dropdown = new Select(jobPositionDropDownMenu);*/
+        create_select(ddl).selectByVisibleText(text);
     }
     public void deselectJobPosition(String text){
-        WebElement jobPositionDropDownMenu = driver.findElement(ddl);
-        Select dropdown = new Select(jobPositionDropDownMenu);
-        dropdown.deselectByValue(text);
+       /* WebElement jobPositionDropDownMenu = driver.findElement(ddl);
+        Select dropdown = new Select(jobPositionDropDownMenu);*/
+        create_select(ddl).deselectByValue(text);
     }
-
     public InterviewerPage clickCreateNewInterviewerButton(){
-        driver.findElement(createInterviewerButton).click();
+        click_on(createInterviewerButton);
         return new InterviewerPage(driver);
     }
     public InterviewerPage clickCancelButton(){
-        driver.findElement(cancelButton).click();
+        click_on(cancelButton);
         return new InterviewerPage(driver);
     }
-
     public JobPositionsPage clickJobPositionsPage(){
-        driver.findElement(jobPositionsButton).click();
+        click_on(jobPositionsButton);
         return new JobPositionsPage(driver);
     }
 

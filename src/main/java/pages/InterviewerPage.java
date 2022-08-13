@@ -6,38 +6,35 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class InterviewerPage {
-    private WebDriver driver;
+public class InterviewerPage extends PageBase{
+    //private WebDriver driver;
     private By newInterviewerButton = By.linkText("New Interviewer");
     private By pageTitle = By.id("page_title");
     private By Alert = By.className("flashes");
     private By interviewerEmailList = By.className("col-email");
 
-
-    public InterviewerPage(WebDriver driver){
-        this.driver = driver;
+    public InterviewerPage(WebDriver driver) {
+        super(driver);
     }
 
 
     public boolean isNewInterviewerButtonDisplayed(){
-       return driver.findElement(newInterviewerButton).isDisplayed();
+       return displayed(newInterviewerButton);
     }
     public String getPageTitle(){
-        return driver.findElement(pageTitle).getText();
+        return getFieldText(pageTitle);
     }
     public boolean isAlertDisplayed(){
-        return driver.findElement(Alert).isDisplayed();
+        return displayed(Alert);
     }
-    public String getAlertText(){
-        return driver.findElement(Alert).getText();
-    }
+    public String getAlertText(){return getFieldText(Alert);}
     public String getFirstInterviewerEmail(){
         List< WebElement> emailList = driver.findElements(interviewerEmailList);
         return emailList.get(1).getText();
     }
 
     public CreateNewInterviewerPage clickNewInterviewerButton(){
-        driver.findElement(newInterviewerButton).click();
+        click_on(newInterviewerButton);
         return new CreateNewInterviewerPage(driver);
     }
 }

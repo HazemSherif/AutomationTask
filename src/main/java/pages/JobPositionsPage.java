@@ -5,17 +5,16 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
-public class JobPositionsPage {
+public class JobPositionsPage extends PageBase{
 
-    private WebDriver driver;
-
-    public JobPositionsPage(WebDriver driver){
-        this.driver = driver;
-    }
+    //private WebDriver driver;
     private By jobTitle = By.className("col-title");
+    public JobPositionsPage(WebDriver driver) {
+        super(driver);
+    }
 
     public List getJobTitleList(){
-       return driver.findElements(jobTitle);
+       return find_list(jobTitle);
     }
 
 }

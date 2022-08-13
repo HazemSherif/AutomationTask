@@ -17,27 +17,19 @@ import static org.testng.Assert.*;
 
 public class NewInterviewerTests extends BaseTests {
 
+
+
+
     // can fail it because there isn't any confirmation message
     @Test
     public void youCanCreateNewInterviewers(){
 
-        Faker faker = new Faker();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String email = faker.internet().emailAddress();
-
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
-
-        newInterviewerPage.setEmailFieldText(email);
-        newInterviewerPage.setFirstNameFieldText(firstName);
-        newInterviewerPage.setLastNameFieldText(lastName);
-        newInterviewerPage.selectJobPosition("System Admin");
+        String[] text_fields = type_in_fields(newInterviewerPage);
         interviewersPage = newInterviewerPage.clickCreateNewInterviewerButton();
-        assertEquals(interviewersPage.getFirstInterviewerEmail(),email,"created email is written correctly");
+        assertEquals(interviewersPage.getFirstInterviewerEmail(),text_fields[0],"created email is written correctly");
 
         //Assert.assertTrue(interviewersPage.isAlertDisplayed(), "Creation message is displayed");
         //assertEquals(interviewersPage.getAlertText(), "Interviewer was successfully created.", "Creation message text is not displayed correctly");
@@ -45,23 +37,12 @@ public class NewInterviewerTests extends BaseTests {
     @Test
     public void cancelButtonDoesNotCreateAccount(){
 
-        Faker faker = new Faker();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String email = faker.internet().emailAddress();
-
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
-
-        newInterviewerPage.setEmailFieldText(email);
-        newInterviewerPage.setFirstNameFieldText(firstName);
-        newInterviewerPage.setLastNameFieldText(lastName);
-        newInterviewerPage.selectJobPosition("System Admin");
+        String[] text_fields = type_in_fields(newInterviewerPage);
         interviewersPage = newInterviewerPage.clickCancelButton();
-        assertNotEquals(interviewersPage.getFirstInterviewerEmail(),email,"new account wasn't created");
+        assertNotEquals(interviewersPage.getFirstInterviewerEmail(),text_fields[0],"new account wasn't created");
     }
     // fails but that means it works XD
     @Test
@@ -71,8 +52,7 @@ public class NewInterviewerTests extends BaseTests {
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
         String [] emails = {"abc-@mail.com","abc..def@mail.com",".abc@mail.com","abc#def@mail.com","abc.def@mail.c","abc.def@mail#archive.com","abc.def@mail","abc.def@mail..com"};
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
+
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -89,8 +69,7 @@ public class NewInterviewerTests extends BaseTests {
     @Test
     public void cantCreateAccountWithSameEmail(){
         String [] sameEmail = {"abc-@mail.com", "abc-@maIl.com", "abc-@mail.com  "};
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
+
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         for ( int i = 0 ; i < 3 ;i++){
@@ -105,8 +84,6 @@ public class NewInterviewerTests extends BaseTests {
     // how to test that the UI isn't going to look bad????
     @Test
     public void cantCreateAnInterviewerWhenAllFieldsAreEmpty(){
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -116,15 +93,12 @@ public class NewInterviewerTests extends BaseTests {
         assertEquals(newInterviewerPage.getErrorMessage(2), "can't be blank");
         assertEquals(newInterviewerPage.getErrorMessage(3), "can't be blank");
     }
-
     @Test
     public void cantCreateAnInterviewerWithEmptyEmailField(){
         Faker faker = new Faker();
         String lastName = faker.name().lastName();
         String name = faker.name().firstName();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -142,8 +116,6 @@ public class NewInterviewerTests extends BaseTests {
         String lastName = faker.name().lastName();
         String email = faker.internet().emailAddress();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -160,8 +132,6 @@ public class NewInterviewerTests extends BaseTests {
         String name = faker.name().firstName();
         String email = faker.internet().emailAddress();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -179,8 +149,6 @@ public class NewInterviewerTests extends BaseTests {
         String lastname = faker.name().lastName();
         String email = faker.internet().emailAddress();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -198,8 +166,7 @@ public class NewInterviewerTests extends BaseTests {
         String lastname = faker.name().lastName();
         String email = faker.internet().emailAddress();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
+
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -218,8 +185,7 @@ public class NewInterviewerTests extends BaseTests {
         String lastname = faker.name().lastName();
         String email = faker.internet().emailAddress();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
+
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -237,8 +203,6 @@ public class NewInterviewerTests extends BaseTests {
         String lastname = faker.name().lastName();
         String email = faker.internet().emailAddress();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -257,8 +221,6 @@ public class NewInterviewerTests extends BaseTests {
         String lastname = faker.name().lastName();
         String email = faker.internet().emailAddress();
 
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -280,8 +242,7 @@ public class NewInterviewerTests extends BaseTests {
         String maxMinusOne= faker.lorem().characters(49);
         String max = faker.lorem().characters(50);
         String [] firstName = {min,minPlusOne,maxMinusOne, max};
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
+
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -306,8 +267,7 @@ public class NewInterviewerTests extends BaseTests {
         String maxMinusOne= faker.lorem().characters(49);
         String max = faker.lorem().characters(50);
         String [] lastName = {min,minPlusOne,maxMinusOne, max};
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
+
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
@@ -323,17 +283,17 @@ public class NewInterviewerTests extends BaseTests {
         }
     }
 
+    // not applicable in real life
     @Test
     public void allTheJobPositionExistInTheJobPositionList(){
-        loginPage.setEmailField("interns@interns.com");
-        loginPage.setPasswordField("interns");
+
         DashBoardPage dashboardpage =  loginPage.clickLoginButton();
         InterviewerPage interviewersPage = dashboardpage.clickInterviewerPage();
         CreateNewInterviewerPage newInterviewerPage = interviewersPage.clickNewInterviewerButton();
-        List jobpositions = newInterviewerPage.getJobPositionList();
+        List jobPositions = newInterviewerPage.getJobPositionList();
         JobPositionsPage jobPositionsPage = newInterviewerPage.clickJobPositionsPage();
         for (int i = jobPositionsPage.getJobTitleList().size(); i < jobPositionsPage.getJobTitleList().size()- 1 ; i++){
-            assertEquals(jobPositionsPage.getJobTitleList().get(i+1),jobpositions.get(i));
+            assertEquals(jobPositionsPage.getJobTitleList().get(i+1),jobPositions.get(i));
         }
 
     }

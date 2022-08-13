@@ -3,22 +3,14 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class DashBoardPage {
-    private WebDriver driver;
+public class DashBoardPage extends PageBase{
     private By statusAlert = By.className("flash");
     private By interviewerPageLink = By.linkText("Interviewers");
 
-
-    public DashBoardPage(WebDriver driver){
-        this.driver = driver;
-    }
-
-    public String getAlertText(){
-        return driver.findElement(statusAlert).getText();
-    }
-
+  public DashBoardPage(WebDriver driver) { super(driver);}
+    public String getAlertText(){return getFieldText(statusAlert);}
     public InterviewerPage clickInterviewerPage(){
-        driver.findElement(interviewerPageLink).click();
+        click_on(interviewerPageLink);
         return new InterviewerPage(driver);
     }
 }
